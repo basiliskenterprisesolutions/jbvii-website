@@ -1,0 +1,4 @@
+# Preview build on basilisk.software — replace with an allow-all
+# rule when the site moves to jbvii.uk.
+User-agent: *
+Disallow: /

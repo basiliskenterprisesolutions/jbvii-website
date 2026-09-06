@@ -1,0 +1,10 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+.wrangler
+
+# Joe's original photo/artwork files. Kept out of the public repo — the
+# web-ready versions live in public/media. Originals are on the build machine.
+source-images/
