@@ -179,6 +179,27 @@ in state and marks matching `<line>`s `is-lit`. The circle scales 1.05 while the
 photo inside scales 1.12, so the movement has depth, and a halo ring pulses
 outward. Keep the photo's scale above the circle's or the effect flattens.
 
+## Mobile gotchas
+
+Two things widened the document past the viewport, which threw the whole mobile
+layout out (the header button ran off the right edge). Both are easy to
+reintroduce:
+
+- **The marquee is already full-bleed.** It is a direct child of `<main>`, which
+  has no inline padding, so it needs no negative margin. A
+  `margin-inline: calc(var(--pad) * -1)` on it pushes it a `--pad` past each
+  edge and widens the page.
+- **Decorative glows still take up space.** `.disc__bloom` sits at `inset: -20%`
+  and `.disc__halo` scales to `1.26`. In the tight mobile grid the outer
+  column's glow spilled past the content edge (360 -> 368). `.discs` clips on
+  mobile so inner glows are untouched and only the outer edge is trimmed.
+
+`body { overflow-x: hidden }` hides the symptom but does **not** stop
+`scrollWidth` growing, so check `document.documentElement.scrollWidth` against
+`clientWidth` at 360, 390 and 430 rather than trusting a screenshot. When
+hunting one down, remember that check has to run with the body clipping lifted,
+or every element looks innocent.
+
 ## The logo
 
 `src/logoPath.ts` is the JBVII wordmark traced from `Copy of more.png` with
