@@ -25,7 +25,7 @@
   --violet-wash: rgba(110, 59, 255, 0.1);
 
   --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
-  --body:    "Ranade", "Helvetica Neue", Arial, sans-serif;
+  --body:    "Figtree", "Helvetica Neue", Arial, sans-serif;
   --mono:    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --pad: clamp(1.15rem, 5vw, 2.5rem);
@@ -71,7 +71,7 @@ body {
   background: var(--ink);
   color: var(--blinder);
   font-family: var(--body);
-  font-size: 16px;
+  font-size: 16.5px;
   line-height: 1.62;
   font-synthesis-weight: none;
   -webkit-font-smoothing: antialiased;
@@ -392,7 +392,6 @@ section { padding-inline: var(--gutter); position: relative; }
   inset: 0 0 0 42%;
   z-index: 0;
   overflow: hidden;
-  border-left: 1px solid var(--hair);
 }
 
 .hero__bg img {

@@ -4,10 +4,13 @@ import { LOGO_PATH, LOGO_VIEWBOX } from "../logoPath";
 /**
  * The one bold thing on the page.
  *
- * Three stacked copies of the traced JBVII mark — warm white and two cobalt
- * channels that separate under load — over four horizontal slices that
- * tear sideways. Intensity is driven by scroll position, so the mark holds
- * still while you read it and comes apart as you leave.
+ * Three stacked copies of the traced JBVII mark — white and two violet
+ * channels that separate under load — over four horizontal slices that tear
+ * sideways.
+ *
+ * Intensity comes from three sources added together: scroll position (the
+ * mark comes apart as you leave), a burst on page load, and a small idle
+ * flicker every few seconds so it never sits completely dead.
  */
 
 const SLICES = [
@@ -37,6 +40,14 @@ export default function LogoGlitch({ className = "" }: Props) {
     // page-load burst: settles over the first ~900ms
     const born = performance.now();
 
+    // idle flicker — short, low-amplitude, at an irregular interval so it
+    // reads as a signal fault rather than a loop
+    const IDLE_MS = 260;
+    const IDLE_GAP_MIN = 3400;
+    const IDLE_GAP_MAX = 7200;
+    let idleStart = -Infinity;
+    let nextIdle = born + 2400;
+
     const tick = (now: number) => {
       const vh = window.innerHeight;
       const scrolled = window.scrollY;
@@ -49,7 +60,22 @@ export default function LogoGlitch({ className = "" }: Props) {
       const age = now - born;
       const burst = age < 900 ? Math.pow(1 - age / 900, 2.2) : 0;
 
-      const g = Math.min(1, scrollG + burst);
+      // idle flicker, only while the mark is actually on screen
+      if (now >= nextIdle && travel < 1) {
+        idleStart = now;
+        nextIdle =
+          now + IDLE_GAP_MIN + Math.random() * (IDLE_GAP_MAX - IDLE_GAP_MIN);
+      }
+      const idleAge = now - idleStart;
+      // decaying envelope, chopped so it stutters rather than fades smoothly
+      const idle =
+        idleAge < IDLE_MS
+          ? 0.32 *
+            Math.pow(1 - idleAge / IDLE_MS, 0.6) *
+            (idleAge % 90 < 52 ? 1 : 0.22)
+          : 0;
+
+      const g = Math.min(1, scrollG + burst + idle);
       el.style.setProperty("--g", g.toFixed(3));
       el.style.setProperty("--fade", String(1 - travel * 0.55));
 
@@ -84,9 +110,9 @@ export default function LogoGlitch({ className = "" }: Props) {
 
   return (
     <div ref={ref} className={`glitch ${className}`} aria-hidden="true">
-      {svg("glitch__chroma glitch__chroma--a", "#8EA5FF")}
-      {svg("glitch__chroma glitch__chroma--b", "#405BFF")}
-      {svg("glitch__base", "#F3F1EC")}
+      {svg("glitch__chroma glitch__chroma--a", "#A78BFF")}
+      {svg("glitch__chroma glitch__chroma--b", "#6E3BFF")}
+      {svg("glitch__base", "#F3F3F6")}
       {SLICES.map((s, i) => (
         <svg
           key={i}
@@ -101,7 +127,7 @@ export default function LogoGlitch({ className = "" }: Props) {
             } as React.CSSProperties
           }
         >
-          <path d={LOGO_PATH} fill="#F3F1EC" fillRule="evenodd" />
+          <path d={LOGO_PATH} fill="#F3F3F6" fillRule="evenodd" />
         </svg>
       ))}
     </div>

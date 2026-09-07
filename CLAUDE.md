@@ -99,13 +99,21 @@ the accent runs edge to edge.
 | Family | Role | Source |
 | --- | --- | --- |
 | **Archivo** | headings (`.display`, weight 700) | Google Fonts |
-| **Ranade** | body copy | Fontshare |
+| **Figtree** | body copy | Google Fonts |
 | **JetBrains Mono** | every label, button, nav item, date | Google Fonts |
 
-Ranade has **no 600** — use 500 or 700. It replaced Switzer because Switzer is a
-Helvetica clone and reads as a default; Ranade has enough character in the
-letterforms to look chosen. `body` is 16px rather than 17 because Ranade's
-x-height runs large.
+**Do not self-host or hotlink pacha.com's fonts.** Pacha sets its paragraphs in
+**TT Hoves** (TypeType) and its footer in **Supreme LL** (Lineto). Both are
+commercial licences we do not hold, and their `.woff2` files are served under
+pacha.com's own licence. Figtree is the free match — same geometric skeleton,
+tall x-height and generous width. If the exact face is ever wanted, buy a TT
+Hoves webfont licence from TypeType and swap `--body`; nothing else changes.
+
+Earlier body faces and why they were dropped: Switzer (a Helvetica clone, read
+as a default) and Ranade (character, but the wrong kind). Candidates were
+compared by rendering them in the real theme at real sizes — see
+`shot.mjs` in the session scratchpad for the method. Judge type by looking at
+it, not by description.
 
 Labels use `.data` (mono, uppercase, `0.2em` tracking). Mono things that must
 stay readable — dates, times — add `.data--val`; running prose adds
@@ -120,8 +128,11 @@ press-kit label on one baseline, rather than an eyebrow above a title.
 potrace — one path, `fill-rule="evenodd"` (the counters in the B and the slashed
 V depend on it). It is ~35 kB of path data; that is expected.
 
-`LogoGlitch` stacks white + magenta + violet copies plus four clip-path slices,
-and drives `--g` (intensity) from scroll position in a rAF loop. It is the only
+`LogoGlitch` stacks white + two violet copies plus four clip-path slices, and
+drives `--g` (intensity) from three sources added together: scroll position, a
+burst on page load, and a low-amplitude idle flicker every 3.4-7.2s so the mark
+never sits completely dead. The idle envelope is deliberately chopped
+(`idleAge % 90 < 52`) so it stutters rather than fading smoothly. It is the only
 non-user-triggered motion on the page besides the hero ticker, and both are
 disabled under `prefers-reduced-motion`.
 
