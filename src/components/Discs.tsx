@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { DISC_EDGES, DISCS } from "../data";
 
 const byId = Object.fromEntries(DISCS.map((d) => [d.id, d]));
@@ -7,10 +8,15 @@ const byId = Object.fromEntries(DISCS.map((d) => [d.id, d]));
  * at irregular sizes with a faint web drawn between them so the group reads
  * as one object rather than seven loose links.
  *
+ * Reaching for a circle lights the edges it sits on, so the hover says
+ * something about the shape of the group rather than just enlarging a photo.
+ *
  * The web is decorative and hidden on small screens, where the scatter
  * collapses to a grid and the lines would no longer connect anything.
  */
 export default function Discs() {
+  const [live, setLive] = useState<string | null>(null);
+
   return (
     <nav className="discs" aria-label="Sections and profiles">
       <div className="discs__field">
@@ -25,9 +31,11 @@ export default function Discs() {
             const from = byId[a];
             const to = byId[b];
             if (!from || !to) return null;
+            const lit = live === a || live === b;
             return (
               <line
                 key={`${a}-${b}`}
+                className={lit ? "is-lit" : undefined}
                 x1={from.x}
                 y1={from.y}
                 x2={to.x}
@@ -39,7 +47,7 @@ export default function Discs() {
           {DISCS.map((d) => (
             <circle
               key={d.id}
-              className="discs__node"
+              className={`discs__node ${live === d.id ? "is-lit" : ""}`}
               cx={d.x}
               cy={d.y}
               r="0.45"
@@ -64,12 +72,17 @@ export default function Discs() {
               <a
                 className="disc__link"
                 href={d.href}
+                onMouseEnter={() => setLive(d.id)}
+                onMouseLeave={() => setLive((v) => (v === d.id ? null : v))}
+                onFocus={() => setLive(d.id)}
+                onBlur={() => setLive((v) => (v === d.id ? null : v))}
                 {...(d.external
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}
               >
                 <span className="disc__ring">
                   <span className="disc__bloom" aria-hidden="true" />
+                  <span className="disc__halo" aria-hidden="true" />
                   <span className="disc__media duo">
                     <img src={d.img} alt="" loading="lazy" />
                   </span>

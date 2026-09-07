@@ -28,6 +28,16 @@
     <meta property="og:url" content="https://jbvii.uk/" />
     <meta name="twitter:card" content="summary_large_image" />
 
+    <!-- Set before first paint so revealed content is never briefly visible.
+         Gated here rather than in CSS so that with JS off, or if the bundle
+         fails, everything renders plainly visible instead of staying hidden. -->
+    <script>
+      try {
+        if (!matchMedia("(prefers-reduced-motion: reduce)").matches)
+          document.documentElement.classList.add("anim");
+      } catch (e) {}
+    </script>
+
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 

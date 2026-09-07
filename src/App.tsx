@@ -19,8 +19,37 @@ function useScrolled(threshold = 40) {
   return past;
 }
 
+/**
+ * Reveals anything marked [data-reveal] once it enters the viewport, then
+ * stops watching it. Gated on the `anim` class the head script sets, so with
+ * JS off or reduced motion on, nothing is ever hidden in the first place.
+ */
+function useReveal() {
+  useEffect(() => {
+    if (!document.documentElement.classList.contains("anim")) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (!e.isIntersecting) continue;
+          e.target.classList.add("is-in");
+          io.unobserve(e.target);
+        }
+      },
+      // threshold MUST stay 0. IntersectionObserver measures the target after
+      // its own clip-path is applied, so a reveal that starts clipped shrinks
+      // the very geometry being observed: the band starts at inset(46% 0) and
+      // tops out at a 0.076 ratio, which never crosses a 0.12 threshold and
+      // so can never reveal itself.
+      { threshold: 0, rootMargin: "0px 0px -6% 0px" },
+    );
+    document.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+}
+
 export default function App() {
   const scrolled = useScrolled();
+  useReveal();
   const formRef = useRef<HTMLFormElement>(null);
 
   const onBook = (e: React.FormEvent<HTMLFormElement>) => {
@@ -100,7 +129,7 @@ export default function App() {
 
         {/* The marquee opens the second screen rather than closing the first,
             so the hero is all you see until you scroll. */}
-        <div className="ticker" aria-hidden="true">
+        <div className="ticker" aria-hidden="true" data-reveal="band">
           <div className="ticker__run">
             {[0, 1].map((dup) => (
               <span className="ticker__set" key={dup}>
@@ -133,10 +162,10 @@ export default function App() {
         {/* ---------------------------- about ---------------------------- */}
         <section id="about" className="section-pad about">
           <div className="wrap about__grid">
-            <figure className="about__figure duo">
+            <figure className="about__figure duo" data-reveal="media">
               <img src="/media/portrait.webp" alt="JBVII playing in front of a projection wall" loading="lazy" />
             </figure>
-            <div className="about__body">
+            <div className="about__body" data-reveal="up">
               <SectionHead title="Who I am" meta="Bio" />
               <p className="lede">
                 Joe Burke. JBVII is the name on the poster.
@@ -165,7 +194,7 @@ export default function App() {
             <SectionHead title="What I've done" meta="Selected shows" />
             <ol className="lineup">
               {PLAYED.map((g, i) => (
-                <li className="lineup__row" key={i}>
+                <li className="lineup__row" key={i} data-reveal="up" style={{ "--d": i } as React.CSSProperties}>
                   <span className="data data--val lineup__date">{g.date}</span>
                   <span className="lineup__event">
                     {g.event}
@@ -178,7 +207,7 @@ export default function App() {
               ))}
             </ol>
 
-            <div className="posters">
+            <div className="posters" data-reveal="media">
               <figure className="poster">
                 <img src="/media/poster-brewfest.webp" alt="Dundee Brewfest artist announcement featuring JBVII" loading="lazy" />
                 <figcaption className="data">Dundee Brewfest 2026, Canvas</figcaption>
@@ -198,7 +227,7 @@ export default function App() {
             <p className="lede sounds__lede">
               Recent mixes, recorded live and in the studio.
             </p>
-            <div className="player">
+            <div className="player" data-reveal="up">
               <iframe
                 title="JBVII on SoundCloud"
                 width="100%"
@@ -229,7 +258,7 @@ export default function App() {
             {UPCOMING.length > 0 ? (
               <ol className="lineup lineup--upcoming">
                 {UPCOMING.map((g, i) => (
-                  <li className="lineup__row" key={i}>
+                  <li className="lineup__row" key={i} data-reveal="up" style={{ "--d": i } as React.CSSProperties}>
                     <span className="data data--val lineup__date">{g.date}</span>
                     <span className="lineup__event">{g.event}</span>
                     <span className="lineup__venue">{g.venue}</span>
@@ -246,7 +275,7 @@ export default function App() {
                 ))}
               </ol>
             ) : (
-              <div className="empty">
+              <div className="empty" data-reveal="up">
                 <p className="lede">
                   Nothing on sale this second. The next Project VII date is being
                   put together now, and tickets go up on Skiddle the day it is
@@ -273,7 +302,7 @@ export default function App() {
               </div>
             )}
 
-            <div className="ahead">
+            <div className="ahead" data-reveal="up">
               <h3 className="display h-sub">Where I'm going</h3>
               <p>
                 More Project VII dates, bigger rooms, and one clear goal: the
@@ -289,8 +318,13 @@ export default function App() {
             <SectionHead title="The room" meta="Gallery" />
           </div>
           <div className="gallery">
-            {GALLERY.map((g) => (
-              <figure className="gallery__item duo" key={g.src}>
+            {GALLERY.map((g, i) => (
+              <figure
+                className="gallery__item duo"
+                key={g.src}
+                data-reveal="media"
+                style={{ "--d": i } as React.CSSProperties}
+              >
                 <img src={g.src} alt={g.alt} loading="lazy" />
               </figure>
             ))}
@@ -303,7 +337,7 @@ export default function App() {
             <SectionHead title="Merch" meta="Store" />
           </div>
           <div className="wrap merch__grid">
-            <div>
+            <div data-reveal="up">
               <p className="lede">
                 The first small run is in production: tees and a long sleeve,
                 carrying the JBVII mark.
@@ -320,7 +354,7 @@ export default function App() {
                 Follow for the drop
               </a>
             </div>
-            <div className="merch__slab" aria-hidden="true">
+            <div className="merch__slab" aria-hidden="true" data-reveal="media">
               <LogoMark className="merch__mark" />
               <span className="merch__stamp">First run</span>
             </div>
@@ -333,7 +367,7 @@ export default function App() {
             <SectionHead title="Book me" meta="Contact" />
           </div>
           <div className="wrap booking__grid">
-            <div className="booking__intro">
+            <div className="booking__intro" data-reveal="up">
               <p className="lede">
                 For club, festival and private bookings, send the date, venue and
                 kind of room. You will get a direct reply.
@@ -348,7 +382,7 @@ export default function App() {
               </p>
             </div>
 
-            <form className="form" onSubmit={onBook} ref={formRef}>
+            <form className="form" onSubmit={onBook} ref={formRef} data-reveal="up">
               <div className="field">
                 <label htmlFor="name">Your name</label>
                 <input id="name" name="name" required autoComplete="name" />

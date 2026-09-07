@@ -145,6 +145,34 @@ two buttons. The marquee is deliberately **outside** the hero, immediately after
 it, so the first screen is only the hero and the marquee opens the second. If
 you add anything to the hero, keep it inside `.hero__inner` or the fold moves.
 
+## Section reveals
+
+Elements marked `[data-reveal]` are revealed by an IntersectionObserver in
+`useReveal` (`App.tsx`), which unobserves each one after it fires. Four kinds:
+`head` (title rises out of a mask, rule draws across, label follows), `up`,
+`media` (a clip opens) and `band` (the violet marquee opens from a hairline —
+the marker for crossing out of the first screen). `--d` on an element staggers
+it.
+
+**Nothing is hidden unless motion is wanted.** A script in `<head>` adds `anim`
+to `<html>` before first paint, and every hidden state is scoped to `.anim`. So
+with JS off, a failed bundle, or `prefers-reduced-motion`, everything renders in
+its finished state instead of staying invisible. Keep new reveal rules under
+`.anim` for the same reason.
+
+> **The observer threshold must stay `0`.** IntersectionObserver measures a
+> target *after* its own `clip-path` is applied, so a reveal that starts clipped
+> shrinks the very geometry being observed. The band starts at `inset(46% 0)`
+> and therefore tops out at a `0.076` intersection ratio — under a `0.12`
+> threshold it can never reveal itself, and the marquee stays a slot forever.
+
+## Disc hover
+
+Hovering a circle lights the web edges it sits on: `Discs` tracks the hovered id
+in state and marks matching `<line>`s `is-lit`. The circle scales 1.05 while the
+photo inside scales 1.12, so the movement has depth, and a halo ring pulses
+outward. Keep the photo's scale above the circle's or the effect flattens.
+
 ## The logo
 
 `src/logoPath.ts` is the JBVII wordmark traced from `Copy of more.png` with
