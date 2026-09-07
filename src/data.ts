@@ -20,45 +20,32 @@ export type Disc = {
   href: string;
   external: boolean;
   img: string;
-  /** centre position + diameter, as a share of the constellation box */
-  x: number;
-  y: number;
-  size: string;
 };
 
 export const DISCS: Disc[] = [
   {
     id: "listen",
     label: "Listen",
-    meta: "Mixes on SoundCloud",
+    meta: "SoundCloud",
     href: LINKS.soundcloud,
     external: true,
     img: "/media/c-listen.webp",
-    x: 9,
-    y: 42,
-    size: "clamp(116px, 13vw, 196px)",
   },
   {
     id: "about",
     label: "About",
-    meta: "Who I am",
+    meta: "Bio",
     href: "#about",
     external: false,
     img: "/media/c-about.webp",
-    x: 24,
-    y: 11,
-    size: "clamp(84px, 9.5vw, 142px)",
   },
   {
     id: "events",
     label: "Events",
-    meta: "Where I'm playing",
+    meta: "Upcoming",
     href: "#events",
     external: false,
     img: "/media/c-events.webp",
-    x: 33,
-    y: 75,
-    size: "clamp(98px, 11vw, 166px)",
   },
   {
     id: "tickets",
@@ -67,9 +54,6 @@ export const DISCS: Disc[] = [
     href: LINKS.tickets,
     external: true,
     img: "/media/c-tickets.webp",
-    x: 50,
-    y: 28,
-    size: "clamp(114px, 12.5vw, 188px)",
   },
   {
     id: "instagram",
@@ -78,9 +62,6 @@ export const DISCS: Disc[] = [
     href: LINKS.instagram,
     external: true,
     img: "/media/c-instagram.webp",
-    x: 64,
-    y: 78,
-    size: "clamp(84px, 9.5vw, 142px)",
   },
   {
     id: "tiktok",
@@ -89,9 +70,6 @@ export const DISCS: Disc[] = [
     href: LINKS.tiktok,
     external: true,
     img: "/media/c-tiktok.webp",
-    x: 76,
-    y: 30,
-    size: "clamp(92px, 10.5vw, 156px)",
   },
   {
     id: "book",
@@ -100,9 +78,6 @@ export const DISCS: Disc[] = [
     href: "#booking",
     external: false,
     img: "/media/c-book.webp",
-    x: 89,
-    y: 68,
-    size: "clamp(106px, 12vw, 180px)",
   },
 ];
 

@@ -1,26 +1,12 @@
 import { DISCS } from "../data";
 
-/**
- * The circle nav, borrowed from the Pacha artist grid but scattered rather
- * than gridded — seven lit discs hanging in the haze at different depths.
- * Each one switches on when you reach for it.
- */
+/** Image-led section and profile index. */
 export default function Discs() {
   return (
     <nav className="discs" aria-label="Sections and profiles">
       <ul className="discs__field">
         {DISCS.map((d) => (
-          <li
-            key={d.id}
-            className="disc"
-            style={
-              {
-                "--x": `${d.x}%`,
-                "--y": `${d.y}%`,
-                "--size": d.size,
-              } as React.CSSProperties
-            }
-          >
+          <li key={d.id} className="disc">
             <a
               className="disc__link"
               href={d.href}

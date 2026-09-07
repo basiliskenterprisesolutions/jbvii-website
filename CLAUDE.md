@@ -50,45 +50,69 @@ the real bookings inbox.
 
 ## Design tokens
 
-Defined at the top of `src/styles.css`.
+Defined at the top of `src/styles.css`. The theme is ported from
+**madeacademy.basilisk.software**, with the accent scale moved from blue to
+violet. Two things make it read as one system — keep both when adding anything.
+
+**The five-step accent.** Never introduce a raw hex accent; pick a step.
 
 | Token | Value | Role |
 | --- | --- | --- |
-| `--ink` | `#07080D` | base; blue-shifted, never pure black |
-| `--haze` | `#12151F` | raised panels |
-| `--blinder` | `#F2F4FF` | text and the logo; slightly blue white |
-| `--uv` | `#6B3BFF` | violet wash |
-| `--laser` | `#FF2D6F` | hot accent |
+| `--bg` | `#060609` | base |
+| `--surface` | `#101019` | raised panels |
+| `--text` | `#F3F3F6` | text and the logo |
+| `--muted` / `--muted-2` | `#8D8D9C` / `#63636F` | secondary, labels |
+| `--violet` | `#6E3BFF` | primary accent |
+| `--violet-hi` | `#A78BFF` | hover, focus, detail |
+| `--violet-deep` | `#2E0B96` | shadowed accent |
+| `--violet-glow` / `--violet-wash` | 35% / 10% violet | rings, section washes |
 
-Both accents are used as **light** — bloom, beam, gradient bleed — not as flat
-fills. The `.atmos` layer (fixed, `z-index: 0`) carries the corner washes and an
-inline-SVG grain so the dark never reads as a flat swatch.
+The magenta that used to pair with the violet is gone. The only place two
+colours still split is the glitch mark's chroma layers, where it reads as broken
+signal rather than as an accent.
 
-Photography all goes through `.duo`: grayscale underneath, a violet-to-magenta
-wash blended with `mix-blend-mode: color` on top, releasing to full colour on
-hover. That treatment is the site's signature — apply it to any photo added
-later, or the new image will look pasted in.
+**The cut corner.** `--cut-shape` is a 315° gradient used as a mask, so one
+corner is chamfered off. It is on buttons, nav items, disc tiles, posters and
+panels, sized per element with `--cut`.
 
-`.statement__line` clips a photo inside the type with `background-clip: text`.
-It layers a light gradient **over** the photo inside the same clip; without it
-the letters render near-black on near-black. Keep that first background layer.
+> A `mask` clips anything painted outside the element box, **including the focus
+> outline**. Everything carrying the chamfer therefore draws focus inward with
+> `outline-offset: -3px`. If you add the mask to something new that can take
+> focus, add it to that rule too or keyboard focus silently disappears. This is
+> also why form inputs are *not* masked.
 
-Type is three families, each with one job:
+Neutrals, easing (`--ease`, `--ease-out`), `--maxw`, `--pad` and `--nav-h` come
+from the same source. Legacy names (`--ink`, `--blinder`, `--uv`, `--hair`…) are
+aliased onto these tokens at the bottom of `:root`, so colour has one source of
+truth.
+
+Photography goes through `.duo`: grayscale underneath, a violet wash blended
+with `mix-blend-mode: color` at **0.4** opacity, releasing to colour on hover.
+That opacity is deliberately low — at 0.7 the photos flood to flat violet and
+lose all detail.
+
+The ticker under the hero is the one full-bleed violet band, and the only place
+the accent runs edge to edge.
+
+## Type
 
 | Family | Role | Source |
 | --- | --- | --- |
-| **Archivo** (variable) | every heading, run out on its width axis | Google Fonts |
-| **Switzer** | body copy | Fontshare |
-| **JetBrains Mono** | dates, times, labels — anything read as data | Google Fonts |
+| **Archivo** | headings (`.display`, weight 700) | Google Fonts |
+| **Ranade** | body copy | Fontshare |
+| **JetBrains Mono** | every label, button, nav item, date | Google Fonts |
 
-Archivo **must** be loaded as a variable font (`Archivo:wdth,wght@62..125,100..900`).
-The design sets `font-stretch: 108-118%` on headings; swap in a static-weight URL
-and every heading silently collapses to normal width.
+Ranade has **no 600** — use 500 or 700. It replaced Switzer because Switzer is a
+Helvetica clone and reads as a default; Ranade has enough character in the
+letterforms to look chosen. `body` is 16px rather than 17 because Ranade's
+x-height runs large.
 
-Headings use the `.display` class (weight 700, `font-stretch`, `-0.035em`).
-Small data uses `.data` (JetBrains Mono). Section headings are the `SectionHead`
-component — a running head of title, hairline rule and press-kit label on one
-baseline, not an eyebrow above the title.
+Labels use `.data` (mono, uppercase, `0.2em` tracking). Mono things that must
+stay readable — dates, times — add `.data--val`; running prose adds
+`.data--prose`.
+
+Section headings are the `SectionHead` component: title, hairline rule and
+press-kit label on one baseline, rather than an eyebrow above a title.
 
 ## The logo
 

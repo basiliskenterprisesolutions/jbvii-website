@@ -4,8 +4,8 @@ import { LOGO_PATH, LOGO_VIEWBOX } from "../logoPath";
 /**
  * The one bold thing on the page.
  *
- * Three stacked copies of the traced JBVII mark — white, plus a magenta and a
- * violet channel that separate under load — over four horizontal slices that
+ * Three stacked copies of the traced JBVII mark — warm white and two cobalt
+ * channels that separate under load — over four horizontal slices that
  * tear sideways. Intensity is driven by scroll position, so the mark holds
  * still while you read it and comes apart as you leave.
  */
@@ -84,9 +84,9 @@ export default function LogoGlitch({ className = "" }: Props) {
 
   return (
     <div ref={ref} className={`glitch ${className}`} aria-hidden="true">
-      {svg("glitch__chroma glitch__chroma--a", "#FF2D6F")}
-      {svg("glitch__chroma glitch__chroma--b", "#6B3BFF")}
-      {svg("glitch__base", "#F2F4FF")}
+      {svg("glitch__chroma glitch__chroma--a", "#8EA5FF")}
+      {svg("glitch__chroma glitch__chroma--b", "#405BFF")}
+      {svg("glitch__base", "#F3F1EC")}
       {SLICES.map((s, i) => (
         <svg
           key={i}
@@ -101,7 +101,7 @@ export default function LogoGlitch({ className = "" }: Props) {
             } as React.CSSProperties
           }
         >
-          <path d={LOGO_PATH} fill="#F2F4FF" fillRule="evenodd" />
+          <path d={LOGO_PATH} fill="#F3F1EC" fillRule="evenodd" />
         </svg>
       ))}
     </div>

@@ -54,10 +54,10 @@ export default function App() {
         </a>
         <nav className="bar__nav" aria-label="Primary">
           <a href="#about">About</a>
-          <a href="#played">Credits</a>
-          <a href="#sounds">Mixes</a>
-          <a href="#events">Events</a>
-          <a className="btn bar__cta" href="#booking">Book JBVII</a>
+          <a href="#played">Shows</a>
+          <a href="#sounds">Listen</a>
+          <a href="#events">Dates</a>
+          <a className="btn bar__cta" href="#booking">Enquire</a>
         </nav>
       </header>
 
@@ -79,12 +79,11 @@ export default function App() {
               DJ, producer and promoter.
             </p>
             <p className="hero__sub">
-              House built for the back half of the night — the stretch after the
-              room stops being polite, when the only thing holding it together
-              is the kick.
+              Late-night house, disco edits and harder cuts. Built live for the
+              room.
             </p>
             <div className="hero__cta">
-              <a className="btn" href="#booking">Book JBVII</a>
+              <a className="btn" href="#booking">Booking enquiry</a>
               <a
                 className="btn btn--ghost"
                 href={LINKS.soundcloud}
@@ -103,7 +102,7 @@ export default function App() {
             </div>
             <div>
               <span className="data spec__k">Sounds</span>
-              <span className="spec__v">House, disco house, hard house</span>
+              <span className="spec__v">House, disco edits, hard house</span>
             </div>
             <div>
               <span className="data spec__k">Plays</span>
@@ -162,21 +161,18 @@ export default function App() {
                 Joe Burke. JBVII is the name on the poster.
               </p>
               <p>
-                I have been behind the decks since I was barely old enough to get
-                into the rooms I now play. House first, but I build sets for the
-                part of the night most people never get booked for — the two a.m.
-                stretch where the room has gone quiet in the head and loud in the
-                legs.
+                I am a Dundee-based DJ and the promoter behind Project VII. I
+                started young and learned by playing the full night, not only the
+                easy hour.
               </p>
               <p>
-                I do not just play the parties. I put them on. Project VII is my
-                own night: I book the lineup, hang the posters, work the door,
-                then open the room myself at half eight.
+                My sets move from house and disco into harder territory when the
+                room is ready. They are shaped in real time rather than fixed in
+                advance.
               </p>
               <p>
-                Book me because I read a floor properly. There is no stock set and
-                no autopilot — I have watched the room from behind the door and
-                from behind the booth, and I play what it actually needs.
+                For Project VII, I handle the lineups, promotion and the room
+                itself. That wider view of a night carries into every set I play.
               </p>
             </div>
           </div>
@@ -189,14 +185,14 @@ export default function App() {
             <ol className="lineup">
               {PLAYED.map((g, i) => (
                 <li className="lineup__row" key={i}>
-                  <span className="data lineup__date">{g.date}</span>
+                  <span className="data data--val lineup__date">{g.date}</span>
                   <span className="lineup__event">
                     {g.event}
                     {g.note && <span className="lineup__note">{g.note}</span>}
                   </span>
                   <span className="lineup__venue">{g.venue}</span>
                   <span className="lineup__city">{g.city}</span>
-                  <span className="data lineup__time">{g.time || ""}</span>
+                  <span className="data data--val lineup__time">{g.time || ""}</span>
                 </li>
               ))}
             </ol>
@@ -219,7 +215,7 @@ export default function App() {
           <div className="wrap">
             <SectionHead title="Mixes" meta="Listen" />
             <p className="lede sounds__lede">
-              Play them here. Nothing to download, nothing to sign up for.
+              Recent mixes, recorded live and in the studio.
             </p>
             <div className="player">
               <iframe
@@ -230,7 +226,7 @@ export default function App() {
                 frameBorder="no"
                 allow="autoplay"
                 loading="lazy"
-                src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fjbvii&color=%23ff2d6f&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true"
+                src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fjbvii&color=%235e75ff&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true"
               />
             </div>
             <a
@@ -253,7 +249,7 @@ export default function App() {
               <ol className="lineup lineup--upcoming">
                 {UPCOMING.map((g, i) => (
                   <li className="lineup__row" key={i}>
-                    <span className="data lineup__date">{g.date}</span>
+                    <span className="data data--val lineup__date">{g.date}</span>
                     <span className="lineup__event">{g.event}</span>
                     <span className="lineup__venue">{g.venue}</span>
                     <span className="lineup__city">{g.city}</span>
@@ -299,9 +295,8 @@ export default function App() {
             <div className="ahead">
               <h3 className="display h-sub">Where I'm going</h3>
               <p>
-                More Project VII dates, in bigger rooms than the last one. A
-                festival slot each summer rather than one. And the first JBVII
-                original finished and out — produced, not just played.
+                More Project VII dates, bigger rooms, and one clear goal: the
+                first JBVII original finished and released.
               </p>
             </div>
           </div>
@@ -329,12 +324,11 @@ export default function App() {
           <div className="wrap merch__grid">
             <div>
               <p className="lede">
-                First run is in production — tees and a long sleeve, the mark on
-                the back, small numbers.
+                The first small run is in production: tees and a long sleeve,
+                carrying the JBVII mark.
               </p>
               <p>
-                It goes live here and drops on Instagram the same hour. If you
-                want one, that is the place to watch.
+                Release details will be posted here and on Instagram.
               </p>
               <a
                 className="btn"
@@ -360,10 +354,10 @@ export default function App() {
           <div className="wrap booking__grid">
             <div className="booking__intro">
               <p className="lede">
-                Clubs, festivals, birthdays, weddings, brand nights. Tell me the
-                room and the hour and I will tell you what I would play.
+                For club, festival and private bookings, send the date, venue and
+                kind of room. You will get a direct reply.
               </p>
-              <p className="data booking__note">
+              <p className="data data--prose booking__note">
                 Sending this opens your email app with the details filled in. Or
                 write straight to{" "}
                 <a className="link" href={`mailto:${LINKS.bookingEmail}`}>
@@ -412,7 +406,7 @@ export default function App() {
         <div className="wrap foot__grid">
           <div className="foot__brand">
             <LogoMark className="foot__logo" />
-            <p className="data foot__tag">DJ, producer and promoter. Scotland.</p>
+            <p className="data data--prose foot__tag">DJ, producer and promoter. Scotland.</p>
           </div>
 
           <nav className="foot__links" aria-label="Elsewhere">
