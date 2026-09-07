@@ -30,11 +30,13 @@ export default function Discs() {
             >
               <span className="disc__ring">
                 <span className="disc__bloom" aria-hidden="true" />
-                <img className="disc__img" src={d.img} alt="" loading="lazy" />
+                <span className="disc__media duo">
+                  <img src={d.img} alt="" loading="lazy" />
+                </span>
               </span>
               <span className="disc__text">
                 <span className="disc__label">{d.label}</span>
-                <span className="disc__meta">{d.meta}</span>
+                <span className="data disc__meta">{d.meta}</span>
               </span>
             </a>
           </li>

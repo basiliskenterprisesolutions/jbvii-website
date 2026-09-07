@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import LogoGlitch, { LogoMark } from "./components/LogoGlitch";
 import Discs from "./components/Discs";
+import SectionHead from "./components/SectionHead";
 import { GALLERY, LINKS, PLAYED, TICKER, UPCOMING } from "./data";
 
 /* grain, generated once, used by the fixed atmosphere layer */
@@ -75,7 +76,7 @@ export default function App() {
               <LogoGlitch className="hero__logo" />
             </h1>
             <p className="hero__line">
-              DJ, producer and promoter. Scotland.
+              DJ, producer and promoter.
             </p>
             <p className="hero__sub">
               House built for the back half of the night — the stretch after the
@@ -92,6 +93,29 @@ export default function App() {
               >
                 Hear a mix
               </a>
+            </div>
+          </div>
+
+          <div className="wrap spec">
+            <div>
+              <span className="data spec__k">Based</span>
+              <span className="spec__v">Scotland</span>
+            </div>
+            <div>
+              <span className="data spec__k">Sounds</span>
+              <span className="spec__v">House, disco house, hard house</span>
+            </div>
+            <div>
+              <span className="data spec__k">Plays</span>
+              <span className="spec__v">Clubs, festivals, private</span>
+            </div>
+            <div>
+              <span className="data spec__k">Booking</span>
+              <span className="spec__v">
+                <a className="link" href={`mailto:${LINKS.bookingEmail}`}>
+                  {LINKS.bookingEmail}
+                </a>
+              </span>
             </div>
           </div>
 
@@ -115,14 +139,25 @@ export default function App() {
           </div>
         </section>
 
+        {/* --------------------------- statement --------------------------- */}
+        <section className="statement">
+          <div className="wrap">
+            <p className="statement__line">It doesn't count until 2am.</p>
+            <div className="statement__foot">
+              <span className="data">Peak time and after</span>
+              <span className="data">House to hard house</span>
+            </div>
+          </div>
+        </section>
+
         {/* ---------------------------- about ---------------------------- */}
         <section id="about" className="section-pad about">
           <div className="wrap about__grid">
-            <div className="about__figure">
+            <figure className="about__figure duo">
               <img src="/media/portrait.webp" alt="JBVII playing in front of a projection wall" loading="lazy" />
-            </div>
+            </figure>
             <div className="about__body">
-              <h2 className="h-sect">Who I am</h2>
+              <SectionHead title="Who I am" meta="Bio" />
               <p className="lede">
                 Joe Burke. JBVII is the name on the poster.
               </p>
@@ -150,21 +185,18 @@ export default function App() {
         {/* --------------------------- credits --------------------------- */}
         <section id="played" className="section-pad played">
           <div className="wrap">
-            <div className="played__head">
-              <h2 className="h-sect">What I've done</h2>
-              <p className="small played__note">Rooms played, most recent first</p>
-            </div>
+            <SectionHead title="What I've done" meta="Selected shows" />
             <ol className="lineup">
               {PLAYED.map((g, i) => (
                 <li className="lineup__row" key={i}>
-                  <span className="lineup__date">{g.date}</span>
+                  <span className="data lineup__date">{g.date}</span>
                   <span className="lineup__event">
                     {g.event}
                     {g.note && <span className="lineup__note">{g.note}</span>}
                   </span>
                   <span className="lineup__venue">{g.venue}</span>
                   <span className="lineup__city">{g.city}</span>
-                  <span className="lineup__time">{g.time || ""}</span>
+                  <span className="data lineup__time">{g.time || ""}</span>
                 </li>
               ))}
             </ol>
@@ -172,11 +204,11 @@ export default function App() {
             <div className="posters">
               <figure className="poster">
                 <img src="/media/poster-brewfest.webp" alt="Dundee Brewfest artist announcement featuring JBVII" loading="lazy" />
-                <figcaption>Dundee Brewfest 2026, Canvas</figcaption>
+                <figcaption className="data">Dundee Brewfest 2026, Canvas</figcaption>
               </figure>
               <figure className="poster">
                 <img src="/media/poster-projectvii.webp" alt="Project VII lineup poster, Prism Dundee" loading="lazy" />
-                <figcaption>Project VII at Prism</figcaption>
+                <figcaption className="data">Project VII at Prism</figcaption>
               </figure>
             </div>
           </div>
@@ -185,7 +217,7 @@ export default function App() {
         {/* ---------------------------- sounds ---------------------------- */}
         <section id="sounds" className="section-pad sounds">
           <div className="wrap">
-            <h2 className="h-sect">Mixes</h2>
+            <SectionHead title="Mixes" meta="Listen" />
             <p className="lede sounds__lede">
               Play them here. Nothing to download, nothing to sign up for.
             </p>
@@ -215,13 +247,13 @@ export default function App() {
         {/* ---------------------------- events ---------------------------- */}
         <section id="events" className="section-pad events">
           <div className="wrap">
-            <h2 className="h-sect">Dates</h2>
+            <SectionHead title="Dates" meta="Tickets" />
 
             {UPCOMING.length > 0 ? (
               <ol className="lineup lineup--upcoming">
                 {UPCOMING.map((g, i) => (
                   <li className="lineup__row" key={i}>
-                    <span className="lineup__date">{g.date}</span>
+                    <span className="data lineup__date">{g.date}</span>
                     <span className="lineup__event">{g.event}</span>
                     <span className="lineup__venue">{g.venue}</span>
                     <span className="lineup__city">{g.city}</span>
@@ -265,7 +297,7 @@ export default function App() {
             )}
 
             <div className="ahead">
-              <h3 className="ahead__h">Where I'm going</h3>
+              <h3 className="display h-sub">Where I'm going</h3>
               <p>
                 More Project VII dates, in bigger rooms than the last one. A
                 festival slot each summer rather than one. And the first JBVII
@@ -278,11 +310,11 @@ export default function App() {
         {/* ---------------------------- gallery ---------------------------- */}
         <section className="section-pad gallery-section">
           <div className="wrap">
-            <h2 className="h-sect">The room</h2>
+            <SectionHead title="The room" meta="Gallery" />
           </div>
           <div className="gallery">
             {GALLERY.map((g) => (
-              <figure className="gallery__item" key={g.src}>
+              <figure className="gallery__item duo" key={g.src}>
                 <img src={g.src} alt={g.alt} loading="lazy" />
               </figure>
             ))}
@@ -291,9 +323,11 @@ export default function App() {
 
         {/* ----------------------------- merch ----------------------------- */}
         <section id="merch" className="section-pad merch">
+          <div className="wrap">
+            <SectionHead title="Merch" meta="Store" />
+          </div>
           <div className="wrap merch__grid">
             <div>
-              <h2 className="h-sect">Merch</h2>
               <p className="lede">
                 First run is in production — tees and a long sleeve, the mark on
                 the back, small numbers.
@@ -320,14 +354,16 @@ export default function App() {
 
         {/* ---------------------------- booking ---------------------------- */}
         <section id="booking" className="section-pad booking">
+          <div className="wrap">
+            <SectionHead title="Book me" meta="Contact" />
+          </div>
           <div className="wrap booking__grid">
             <div className="booking__intro">
-              <h2 className="h-sect">Book me</h2>
               <p className="lede">
                 Clubs, festivals, birthdays, weddings, brand nights. Tell me the
                 room and the hour and I will tell you what I would play.
               </p>
-              <p className="small">
+              <p className="data booking__note">
                 Sending this opens your email app with the details filled in. Or
                 write straight to{" "}
                 <a className="link" href={`mailto:${LINKS.bookingEmail}`}>
@@ -376,7 +412,7 @@ export default function App() {
         <div className="wrap foot__grid">
           <div className="foot__brand">
             <LogoMark className="foot__logo" />
-            <p className="small foot__tag">DJ, producer and promoter. Scotland.</p>
+            <p className="data foot__tag">DJ, producer and promoter. Scotland.</p>
           </div>
 
           <nav className="foot__links" aria-label="Elsewhere">
@@ -393,7 +429,7 @@ export default function App() {
                 built by <b>basilisk.software</b>
               </a>
             </basilisk-badge>
-            <p className="small foot__copy">© {new Date().getFullYear()} JBVII</p>
+            <p className="data foot__copy">© {new Date().getFullYear()} JBVII</p>
           </div>
         </div>
       </footer>

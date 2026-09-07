@@ -64,8 +64,31 @@ Both accents are used as **light** — bloom, beam, gradient bleed — not as fl
 fills. The `.atmos` layer (fixed, `z-index: 0`) carries the corner washes and an
 inline-SVG grain so the dark never reads as a flat swatch.
 
-Type is **Bodoni Moda** for every statement (it matches the JBVII logotype) and
-**Archivo** for everything functional. Two families only.
+Photography all goes through `.duo`: grayscale underneath, a violet-to-magenta
+wash blended with `mix-blend-mode: color` on top, releasing to full colour on
+hover. That treatment is the site's signature — apply it to any photo added
+later, or the new image will look pasted in.
+
+`.statement__line` clips a photo inside the type with `background-clip: text`.
+It layers a light gradient **over** the photo inside the same clip; without it
+the letters render near-black on near-black. Keep that first background layer.
+
+Type is three families, each with one job:
+
+| Family | Role | Source |
+| --- | --- | --- |
+| **Archivo** (variable) | every heading, run out on its width axis | Google Fonts |
+| **Switzer** | body copy | Fontshare |
+| **JetBrains Mono** | dates, times, labels — anything read as data | Google Fonts |
+
+Archivo **must** be loaded as a variable font (`Archivo:wdth,wght@62..125,100..900`).
+The design sets `font-stretch: 108-118%` on headings; swap in a static-weight URL
+and every heading silently collapses to normal width.
+
+Headings use the `.display` class (weight 700, `font-stretch`, `-0.035em`).
+Small data uses `.data` (JetBrains Mono). Section headings are the `SectionHead`
+component — a running head of title, hairline rule and press-kit label on one
+baseline, not an eyebrow above the title.
 
 ## The logo
 
