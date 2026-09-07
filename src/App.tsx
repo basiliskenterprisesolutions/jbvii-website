@@ -330,7 +330,12 @@ export default function App() {
                 data-reveal="media"
                 style={{ "--d": i } as React.CSSProperties}
               >
-                <img src={g.src} alt={g.alt} loading="lazy" />
+                <img
+                  src={g.src}
+                  alt={g.alt}
+                  loading="lazy"
+                  style={g.pos ? { objectPosition: g.pos } : undefined}
+                />
               </figure>
             ))}
           </div>

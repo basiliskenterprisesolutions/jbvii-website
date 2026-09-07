@@ -160,15 +160,20 @@ export const PLAYED: Gig[] = [
 /* TODO(joe): add confirmed dates here and the Events section fills itself in. */
 export const UPCOMING: Gig[] = [];
 
-export const GALLERY = [
+/**
+ * `pos` is the CSS object-position for the crop. These photos are portrait and
+ * the gallery cells are short, so the default 50% centre lands on torsos and
+ * cuts faces off. Read a new value off the source image rather than guessing.
+ */
+export const GALLERY: { src: string; alt: string; pos?: string }[] = [
   { src: "/media/g3.webp", alt: "Lit from above in the crowd, late" },
-  { src: "/media/g1.webp", alt: "Behind the CDJs under purple wash" },
+  { src: "/media/g1.webp", alt: "Behind the CDJs under purple wash", pos: "50% 18%" },
   { src: "/media/g2.webp", alt: "Front of house, blue strobe" },
   { src: "/media/g5.webp", alt: "Eat sleep rave repeat, facing the screen" },
   { src: "/media/g9.webp", alt: "Hands on the mixer mid-set" },
-  { src: "/media/g6.webp", alt: "In the room before doors" },
-  { src: "/media/g4.webp", alt: "Backstage at the venue" },
-  { src: "/media/g7.webp", alt: "Festival field, daytime" },
+  { src: "/media/g6.webp", alt: "In the room before doors", pos: "50% 26%" },
+  { src: "/media/g4.webp", alt: "Backstage at the venue", pos: "50% 30%" },
+  { src: "/media/g7.webp", alt: "Festival field, daytime", pos: "50% 28%" },
   { src: "/media/g8.webp", alt: "Out front with the crowd" },
 ];
 

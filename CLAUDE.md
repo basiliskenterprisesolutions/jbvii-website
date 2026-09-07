@@ -122,6 +122,26 @@ stay readable — dates, times — add `.data--val`; running prose adds
 Section headings are the `SectionHead` component: title, hairline rule and
 press-kit label on one baseline, rather than an eyebrow above a title.
 
+## Photo crops
+
+Gallery photos are portrait and the gallery cells are short, so `object-fit:
+cover` with the default 50% centre lands on torsos and cuts faces off. Each
+`GALLERY` entry takes an optional `pos` (a CSS `object-position`) to pull the
+frame onto the face — `g1` 18%, `g6` 26%, `g7` 28%, `g4` 30%.
+
+To pick a value, look at the image rather than guessing: render it with
+horizontal guides and read the face's position off them, e.g.
+
+```bash
+ffmpeg -i public/media/g1.webp -vf "scale=-1:480,drawgrid=w=iw:h=48:t=1:c=0x00ff9955" /tmp/g1.png
+```
+
+Disc images are a different problem: they are masked to circles, which clip the
+corners, so `object-position` cannot rescue a subject sitting in one. `c-tiktok`
+had the face in the top-left of a very tall frame and had to be **re-cropped at
+source** (`crop=720:720:0:0` from `IMG_3442.jpeg`). Judge any new disc crop as a
+circle, not a square — a square that looks fine can lose the subject once masked.
+
 ## The constellation
 
 The section index is circles scattered at irregular sizes, wired together by a
