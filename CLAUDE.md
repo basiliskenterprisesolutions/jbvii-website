@@ -181,6 +181,15 @@ outward. Keep the photo's scale above the circle's or the effect flattens.
 
 ## Mobile gotchas
 
+The footer credit badge and copyright sit **side by side on one line at every
+width**, centred against each other. The badge is a fixed 216x30 in its own
+shadow root and must never be squashed, so the copyright is what gives at narrow
+sizes (tighter tracking, smaller gap, and the footer gives back some gutter
+below 400px). `.foot__copy` must keep `margin: 0` — `align-items: center`
+centres the *margin box*, so the global `p` bottom margin lifted the text ~6px
+above the badge's centre.
+
+
 Two things widened the document past the viewport, which threw the whole mobile
 layout out (the header button ran off the right edge). Both are easy to
 reintroduce:

@@ -1020,6 +1020,10 @@ section { padding-inline: var(--gutter); position: relative; }
   border-top: 1px solid var(--hair);
 }
 
+/* Sits beside the credit badge, so it must carry no trailing margin —
+   flex centres the margin box, and any bottom margin lifts the text. */
+.foot__copy { margin: 0; }
+
 /* the badge inherits text properties through the slot — reset them */
 basilisk-badge {
   display: inline-block;
@@ -1032,13 +1036,32 @@ basilisk-badge {
 @media (max-width: 700px) {
   .foot__grid { grid-template-columns: 1fr; }
 
-  /* stack the credit badge and the copyright instead of pushing them to
-     opposite ends of a line too narrow to hold both */
+  /* Badge and copyright stay on one line, centred against each other. The
+     badge is a fixed 216x30 set in its own shadow root and must not be
+     squashed, so the copyright is what gives: tighter tracking and a smaller
+     gap buy the room. */
   .foot__credit {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.85rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 0.6rem;
   }
+
+  .foot__credit basilisk-badge { flex: 0 0 auto; }
+
+  .foot__copy {
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    text-align: right;
+  }
+}
+
+/* At the narrowest sizes the two only fit if the footer gives back some
+   of its own gutter. */
+@media (max-width: 400px) {
+  .foot { padding-inline: 1rem; }
+  .foot__copy { font-size: 0.6rem; letter-spacing: 0.03em; }
 }
 
 /* ---------------------- the glitch mark ---------------------- */
