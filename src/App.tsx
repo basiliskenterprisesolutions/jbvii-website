@@ -95,41 +95,22 @@ export default function App() {
             </div>
           </div>
 
-          <div className="wrap spec">
-            <div>
-              <span className="data spec__k">Based</span>
-              <span className="spec__v">Scotland</span>
-            </div>
-            <div>
-              <span className="data spec__k">Sounds</span>
-              <span className="spec__v">House, disco edits, hard house</span>
-            </div>
-            <div>
-              <span className="data spec__k">Plays</span>
-              <span className="spec__v">Clubs, festivals, private</span>
-            </div>
-            <div>
-              <span className="data spec__k">Booking</span>
-              <span className="spec__v">
-                <a className="link" href={`mailto:${LINKS.bookingEmail}`}>
-                  {LINKS.bookingEmail}
-                </a>
-              </span>
-            </div>
-          </div>
-
-          <div className="ticker" aria-hidden="true">
-            <div className="ticker__run">
-              {[0, 1].map((dup) => (
-                <span className="ticker__set" key={dup}>
-                  {TICKER.map((t) => (
-                    <span className="ticker__item" key={t}>{t}</span>
-                  ))}
-                </span>
-              ))}
-            </div>
-          </div>
         </section>
+
+
+        {/* The marquee opens the second screen rather than closing the first,
+            so the hero is all you see until you scroll. */}
+        <div className="ticker" aria-hidden="true">
+          <div className="ticker__run">
+            {[0, 1].map((dup) => (
+              <span className="ticker__set" key={dup}>
+                {TICKER.map((t) => (
+                  <span className="ticker__item" key={t}>{t}</span>
+                ))}
+              </span>
+            ))}
+          </div>
+        </div>
 
         {/* --------------------------- disc nav --------------------------- */}
         <section className="section-pad discs-section">

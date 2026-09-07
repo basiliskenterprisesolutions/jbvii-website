@@ -429,24 +429,8 @@ section { padding-inline: var(--gutter); position: relative; }
 .hero__cta { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.8rem; }
 
 /* Press-kit spec strip: the facts a promoter checks first, on a rule. */
-.spec {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 1.6rem clamp(1.5rem, 4vw, 3.5rem);
-  border-top: 1px solid var(--faint);
-  padding: 1.4rem 0 1.6rem;
-}
 
-.spec__k { display: block; margin-bottom: 0.4rem; }
 
-.spec__v {
-  display: block;
-  font-size: 0.92rem;
-  line-height: 1.4;
-  color: rgba(243, 241, 236, 0.9);
-}
 
 /* venue ticker along the very bottom of the hero */
 .ticker {
@@ -487,59 +471,91 @@ section { padding-inline: var(--gutter); position: relative; }
 
 /* ---------------------- disc constellation ---------------------- */
 
-.discs__field {
+.discs__field { position: relative; height: clamp(380px, 44vw, 560px); }
+
+/* The web is drawn in the same 0-100 space the discs are positioned in, so
+   the lines land on the circle centres with nothing to keep in sync. */
+.discs__web {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.discs__web line { stroke: rgba(167, 139, 255, 0.22); stroke-width: 1; }
+.discs__node { fill: var(--violet-hi); opacity: 0.5; stroke: none; }
+
+.discs__list {
   list-style: none;
-  margin: 0; padding: 0;
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: clamp(0.75rem, 1.4vw, 1.25rem);
+  margin: 0;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+  height: 100%;
 }
 
 .disc {
-  min-width: 0;
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  transform: translate(-50%, -50%);
+  width: var(--size);
 }
 
-.disc__link { display: block; text-decoration: none; }
+.disc__link { display: block; text-decoration: none; text-align: center; }
 
 .disc__ring {
   position: relative;
   display: block;
   width: 100%;
   aspect-ratio: 1;
-  overflow: hidden;
+  border-radius: 50%;
 }
 
-.disc__media {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-}
-
+.disc__media { position: absolute; inset: 0; border-radius: 50%; z-index: 2; }
 .disc__media img { width: 100%; height: 100%; object-fit: cover; }
 
+/* hairline that lights up into a rim */
 .disc__ring::after {
   content: "";
   position: absolute;
-  inset: 0;
-  border: 1px solid var(--hair);
+  inset: -1px;
+  border-radius: 50%;
+  padding: 1px;
+  background: linear-gradient(140deg, rgba(243, 243, 246, 0.3), rgba(243, 243, 246, 0.05));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  transition: background 0.5s var(--ease);
   z-index: 3;
   pointer-events: none;
 }
 
 .disc__bloom {
-  display: none;
+  position: absolute;
+  inset: -20%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--violet-glow), var(--violet-wash) 45%, transparent 70%);
+  opacity: 0;
+  filter: blur(16px);
+  transition: opacity 0.5s var(--ease);
+  z-index: 1;
 }
 
-.disc__text { display: block; margin-top: 0.85rem; padding-top: 0.75rem; border-top: 1px solid var(--hair); }
+.disc__text { display: block; margin-top: 0.8rem; }
 
 .disc__label {
   display: block;
   font-family: var(--display);
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: -0.025em;
-  font-size: clamp(1rem, 1.35vw, 1.2rem);
+  font-size: clamp(0.95rem, 1.3vw, 1.15rem);
   line-height: 1.1;
-  color: var(--blinder);
+  color: var(--text);
 }
 
 .disc__meta {
@@ -550,23 +566,37 @@ section { padding-inline: var(--gutter); position: relative; }
   transition: color 0.35s var(--ease);
 }
 
+.disc__link:hover .disc__bloom,
+.disc__link:focus-visible .disc__bloom { opacity: 1; }
+
 .disc__link:hover .disc__ring::after,
 .disc__link:focus-visible .disc__ring::after {
-  border-color: var(--laser);
+  background: linear-gradient(140deg, var(--violet-hi), var(--violet));
 }
 
 .disc__link:hover .disc__meta,
-.disc__link:focus-visible .disc__meta { color: var(--dim); }
+.disc__link:focus-visible .disc__meta { color: var(--muted); }
 
-@media (max-width: 880px) {
-  .discs__field {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 2rem 1rem;
-  }
+.disc__link:focus-visible .disc__ring {
+  outline: 2px solid var(--violet-hi);
+  outline-offset: 5px;
 }
 
-@media (max-width: 520px) {
-  .discs__field { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+/* Below this the scatter collapses to a grid, and a web joining circles that
+   are no longer scattered would join nothing. */
+@media (max-width: 880px) {
+  .discs__web { display: none; }
+  .discs__field { height: auto; }
+
+  .discs__list {
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+    gap: clamp(1.4rem, 5vw, 2.4rem) 1rem;
+  }
+
+  .disc { position: static; transform: none; width: 100%; }
+  .disc__ring { max-width: 148px; margin-inline: auto; }
 }
 
 .statement {
@@ -953,7 +983,6 @@ basilisk-badge {
 
 /* ---------------- cut corners on the panel-shaped things ---------------- */
 
-.disc__ring,
 .empty,
 .player,
 .merch__slab,
@@ -962,7 +991,6 @@ basilisk-badge {
   mask: var(--cut-shape);
 }
 
-.disc__ring { --cut: 12px; }
 .empty, .player, .merch__slab { --cut: 18px; }
 .poster img { --cut: 14px; }
 /* The chroma layers still carry the two-colour split — that is the glitch
@@ -972,8 +1000,7 @@ basilisk-badge {
    focus outline. Draw it inside on everything that carries the chamfer,
    so keyboard focus stays visible. */
 .btn:focus-visible,
-.bar__nav a:focus-visible,
-.disc__link:focus-visible .disc__ring {
+.bar__nav a:focus-visible {
   outline: 2px solid var(--violet-hi);
   outline-offset: -3px;
 }

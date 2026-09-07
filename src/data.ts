@@ -20,6 +20,10 @@ export type Disc = {
   href: string;
   external: boolean;
   img: string;
+  /** centre + diameter of the disc, as a share of the constellation box */
+  x: number;
+  y: number;
+  size: string;
 };
 
 export const DISCS: Disc[] = [
@@ -30,6 +34,9 @@ export const DISCS: Disc[] = [
     href: LINKS.soundcloud,
     external: true,
     img: "/media/c-listen.webp",
+    x: 10,
+    y: 40,
+    size: "clamp(112px, 12.5vw, 188px)",
   },
   {
     id: "about",
@@ -38,6 +45,9 @@ export const DISCS: Disc[] = [
     href: "#about",
     external: false,
     img: "/media/c-about.webp",
+    x: 25,
+    y: 12,
+    size: "clamp(80px, 9vw, 134px)",
   },
   {
     id: "events",
@@ -46,6 +56,9 @@ export const DISCS: Disc[] = [
     href: "#events",
     external: false,
     img: "/media/c-events.webp",
+    x: 34,
+    y: 74,
+    size: "clamp(94px, 10.5vw, 158px)",
   },
   {
     id: "tickets",
@@ -54,6 +67,9 @@ export const DISCS: Disc[] = [
     href: LINKS.tickets,
     external: true,
     img: "/media/c-tickets.webp",
+    x: 50,
+    y: 30,
+    size: "clamp(110px, 12vw, 180px)",
   },
   {
     id: "instagram",
@@ -62,6 +78,9 @@ export const DISCS: Disc[] = [
     href: LINKS.instagram,
     external: true,
     img: "/media/c-instagram.webp",
+    x: 63,
+    y: 76,
+    size: "clamp(80px, 9vw, 134px)",
   },
   {
     id: "tiktok",
@@ -70,6 +89,9 @@ export const DISCS: Disc[] = [
     href: LINKS.tiktok,
     external: true,
     img: "/media/c-tiktok.webp",
+    x: 76,
+    y: 26,
+    size: "clamp(90px, 10vw, 150px)",
   },
   {
     id: "book",
@@ -78,7 +100,26 @@ export const DISCS: Disc[] = [
     href: "#booking",
     external: false,
     img: "/media/c-book.webp",
+    x: 89,
+    y: 62,
+    size: "clamp(104px, 11.5vw, 172px)",
   },
+];
+
+/**
+ * Which discs are wired to which. The web is decorative — it makes the
+ * scatter read as one constellation instead of seven loose circles — so
+ * edges are chosen to spread across the field without crossing.
+ */
+export const DISC_EDGES: [string, string][] = [
+  ["listen", "about"],
+  ["listen", "events"],
+  ["about", "tickets"],
+  ["events", "tickets"],
+  ["tickets", "tiktok"],
+  ["events", "instagram"],
+  ["instagram", "book"],
+  ["tiktok", "book"],
 ];
 
 export type Gig = {

@@ -122,6 +122,29 @@ stay readable — dates, times — add `.data--val`; running prose adds
 Section headings are the `SectionHead` component: title, hairline rule and
 press-kit label on one baseline, rather than an eyebrow above a title.
 
+## The constellation
+
+The section index is circles scattered at irregular sizes, wired together by a
+faint web. Positions live in `src/data.ts` as `x`/`y`/`size` per disc, and the
+edges to draw as `DISC_EDGES`.
+
+The web is an inline SVG with `viewBox="0 0 100 100"` and
+`preserveAspectRatio="none"`, so its coordinate space **is** the percentage
+space the discs are positioned in — a line between two disc ids lands on their
+centres with nothing to keep in sync. Strokes carry `vector-effect="non-scaling-stroke"`
+so they stay hairlines despite the non-uniform scaling.
+
+Move a disc by editing `x`/`y` only; the web follows. Below 880px the scatter
+collapses to a grid and the web is hidden, because it would then join circles
+that are no longer where the lines expect.
+
+## The first screen
+
+`.hero` is exactly `100svh` and contains nothing but the mark, the line and the
+two buttons. The marquee is deliberately **outside** the hero, immediately after
+it, so the first screen is only the hero and the marquee opens the second. If
+you add anything to the hero, keep it inside `.hero__inner` or the fold moves.
+
 ## The logo
 
 `src/logoPath.ts` is the JBVII wordmark traced from `Copy of more.png` with
