@@ -67,8 +67,8 @@ a { color: inherit; }
   position: absolute;
   inset: -20%;
   background:
-    radial-gradient(48vw 48vw at 12% 8%,  rgba(107, 59, 255, 0.22), transparent 62%),
-    radial-gradient(52vw 52vw at 88% 78%, rgba(255, 45, 111, 0.14), transparent 60%),
+    radial-gradient(48vw 48vw at 12% 8%,  rgba(107, 59, 255, 0.3), transparent 62%),
+    radial-gradient(52vw 52vw at 88% 78%, rgba(255, 45, 111, 0.2), transparent 60%),
     radial-gradient(70vw 40vw at 50% 108%, rgba(107, 59, 255, 0.12), transparent 65%);
   filter: blur(20px);
 }
@@ -123,7 +123,7 @@ p { margin: 0 0 1.15em; max-width: var(--measure); }
 
 section { padding-inline: var(--gutter); position: relative; }
 
-.section-pad { padding-block: clamp(5rem, 13vh, 10rem); }
+.section-pad { padding-block: clamp(3.5rem, 8vh, 6.5rem); }
 
 .wrap { max-width: 1320px; margin-inline: auto; width: 100%; }
 
@@ -242,7 +242,7 @@ section { padding-inline: var(--gutter); position: relative; }
   margin: 0;
   padding: 0;
   position: relative;
-  height: clamp(430px, 52vw, 660px);
+  height: clamp(370px, 42vw, 530px);
 }
 
 .disc {
@@ -292,7 +292,7 @@ section { padding-inline: var(--gutter); position: relative; }
   border-radius: 50%;
   position: relative;
   z-index: 2;
-  filter: grayscale(0.85) brightness(0.62) contrast(1.05);
+  filter: grayscale(0.45) brightness(0.9) contrast(1.06);
   transition: filter 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.9, 0.25, 1);
 }
 
@@ -418,12 +418,13 @@ section { padding-inline: var(--gutter); position: relative; }
 .bar__nav a { text-decoration: none; color: var(--dim); transition: color 0.25s ease; }
 .bar__nav a:hover { color: var(--blinder); }
 
-.bar__cta {
+.bar__nav a.bar__cta {
   padding: 0.62em 1.25em;
   font-size: 0.85rem;
+  font-weight: 600;
   color: var(--ink);
 }
-.bar__cta:hover { color: var(--ink); }
+.bar__nav a.bar__cta:hover { color: var(--ink); }
 
 @media (max-width: 760px) {
   .bar__nav a:not(.bar__cta) { display: none; }
@@ -448,7 +449,7 @@ section { padding-inline: var(--gutter); position: relative; }
   height: 100%;
   object-fit: cover;
   object-position: 52% 32%;
-  filter: grayscale(0.5) brightness(0.5) contrast(1.15) saturate(1.2);
+  filter: grayscale(0.28) brightness(0.78) contrast(1.12) saturate(1.25);
 }
 
 .hero__bg::after {
@@ -456,13 +457,27 @@ section { padding-inline: var(--gutter); position: relative; }
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(7,8,13,0.9) 0%, rgba(7,8,13,0.42) 32%, rgba(7,8,13,0.86) 78%, var(--ink) 100%),
-    linear-gradient(90deg, rgba(7,8,13,0.85), transparent 62%);
+    linear-gradient(180deg, rgba(7,8,13,0.86) 0%, rgba(7,8,13,0.22) 34%, rgba(7,8,13,0.74) 76%, var(--ink) 100%),
+    linear-gradient(90deg, rgba(7,8,13,0.8), rgba(7,8,13,0.15) 58%, transparent 78%);
 }
 
 .hero__inner { position: relative; z-index: 2; }
 
+.hero__h1 { margin: 0; }
+
 .hero__logo { max-width: min(720px, 74vw); }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
 
 .hero__line {
   font-family: var(--display);
@@ -518,7 +533,7 @@ section { padding-inline: var(--gutter); position: relative; }
 
 /* ---------------------------- disc section ---------------------------- */
 
-.discs-section { padding-block: clamp(4rem, 10vh, 8rem); }
+.discs-section { padding-block: clamp(3rem, 7vh, 5.5rem); }
 
 /* ------------------------------- about ------------------------------- */
 
@@ -662,6 +677,9 @@ section { padding-inline: var(--gutter); position: relative; }
 
 .poster img {
   width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: contain;
+  background: rgba(18, 21, 31, 0.6);
   border: 1px solid var(--hair);
 }
 
@@ -680,7 +698,6 @@ section { padding-inline: var(--gutter); position: relative; }
 .player {
   border: 1px solid var(--hair);
   background: rgba(18, 21, 31, 0.75);
-  padding: 0.5rem;
 }
 
 .player iframe { display: block; border: 0; }
@@ -731,7 +748,7 @@ section { padding-inline: var(--gutter); position: relative; }
   width: 100%;
   height: clamp(240px, 30vw, 400px);
   object-fit: cover;
-  filter: grayscale(0.55) brightness(0.72) contrast(1.08);
+  filter: grayscale(0.4) brightness(0.82) contrast(1.06);
   transition: filter 0.5s ease, transform 0.6s cubic-bezier(0.2, 0.9, 0.25, 1);
 }
 

@@ -68,7 +68,12 @@ export default function App() {
           </div>
 
           <div className="hero__inner wrap">
-            <LogoGlitch className="hero__logo" />
+            <h1 className="hero__h1">
+              <span className="sr-only">
+                JBVII — Joe Burke, DJ, producer and promoter
+              </span>
+              <LogoGlitch className="hero__logo" />
+            </h1>
             <p className="hero__line">
               DJ, producer and promoter. Scotland.
             </p>
@@ -188,12 +193,12 @@ export default function App() {
               <iframe
                 title="JBVII on SoundCloud"
                 width="100%"
-                height="520"
+                height="450"
                 scrolling="no"
                 frameBorder="no"
                 allow="autoplay"
                 loading="lazy"
-                src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fjbvii&color=%23ff2d6f&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false"
+                src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fjbvii&color=%23ff2d6f&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true"
               />
             </div>
             <a
@@ -210,7 +215,7 @@ export default function App() {
         {/* ---------------------------- events ---------------------------- */}
         <section id="events" className="section-pad events">
           <div className="wrap">
-            <h2 className="h-sect">Where I'm going</h2>
+            <h2 className="h-sect">Dates</h2>
 
             {UPCOMING.length > 0 ? (
               <ol className="lineup lineup--upcoming">
@@ -260,7 +265,7 @@ export default function App() {
             )}
 
             <div className="ahead">
-              <h3 className="ahead__h">What's next</h3>
+              <h3 className="ahead__h">Where I'm going</h3>
               <p>
                 More Project VII dates, in bigger rooms than the last one. A
                 festival slot each summer rather than one. And the first JBVII
@@ -345,7 +350,7 @@ export default function App() {
                 <label htmlFor="event">What's the event</label>
                 <input id="event" name="event" placeholder="Club night, festival, wedding…" required />
               </div>
-              <div className="field field--half">
+              <div className="field">
                 <label htmlFor="venue">Venue and city</label>
                 <input id="venue" name="venue" />
               </div>
@@ -383,7 +388,7 @@ export default function App() {
           </nav>
 
           <div className="foot__credit">
-            <basilisk-badge>
+            <basilisk-badge theme="dark">
               <a href="https://basilisk.software/?ref=jbvii.uk">
                 built by <b>basilisk.software</b>
               </a>

@@ -136,7 +136,7 @@ export const PLAYED: Gig[] = [
   {
     date: "2026",
     event: "Music Hall",
-    venue: "Music Hall",
+    venue: "Main room",
     city: "Dundee",
   },
 ];

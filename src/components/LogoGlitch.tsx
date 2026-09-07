@@ -83,7 +83,7 @@ export default function LogoGlitch({ className = "" }: Props) {
   );
 
   return (
-    <div ref={ref} className={`glitch ${className}`} role="img" aria-label="JBVII">
+    <div ref={ref} className={`glitch ${className}`} aria-hidden="true">
       {svg("glitch__chroma glitch__chroma--a", "#FF2D6F")}
       {svg("glitch__chroma glitch__chroma--b", "#6B3BFF")}
       {svg("glitch__base", "#F2F4FF")}
