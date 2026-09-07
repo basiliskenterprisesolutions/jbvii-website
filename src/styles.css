@@ -328,7 +328,7 @@ section { padding-inline: var(--gutter); position: relative; }
 }
 
 .bar__mark { display: block; line-height: 0; }
-.bar__logo { width: clamp(70px, 7vw, 96px); height: auto; color: var(--blinder); }
+.bar__logo { width: clamp(50px, 4.8vw, 66px); height: auto; color: var(--blinder); }
 
 .bar__nav {
   display: flex;
@@ -962,19 +962,19 @@ section { padding-inline: var(--gutter); position: relative; }
   position: relative;
   z-index: 1;
   border-top: 1px solid var(--hair);
-  padding: clamp(2.5rem, 6vw, 4.5rem) var(--gutter) 2.25rem;
+  padding: clamp(1.75rem, 3.2vw, 2.75rem) var(--gutter) 1.4rem;
   background: var(--ink);
 }
 
 .foot__grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 2.25rem 3rem;
-  align-items: start;
+  gap: 1.4rem 3rem;
+  align-items: center;
 }
 
-.foot__logo { width: clamp(100px, 12vw, 150px); height: auto; color: var(--blinder); }
-.foot__tag { margin: 0.9rem 0 0; }
+.foot__logo { width: clamp(66px, 7vw, 92px); height: auto; color: var(--blinder); }
+.foot__tag { margin: 0.55rem 0 0; }
 
 .foot__links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; font-size: 0.9rem; }
 .foot__links a { color: var(--dim); text-decoration: none; transition: color 0.25s ease; }
@@ -986,8 +986,8 @@ section { padding-inline: var(--gutter); position: relative; }
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 1rem;
-  padding-top: 1.75rem;
+  gap: 0.9rem;
+  padding-top: 1.2rem;
   border-top: 1px solid var(--hair);
 }
 
@@ -1110,17 +1110,17 @@ basilisk-badge {
   transition: opacity 0.7s var(--ease) 0.5s;
 }
 
-.anim [data-reveal="up"] { opacity: 0; transform: translateY(14px); }
+.anim [data-reveal="up"] { opacity: 0; transform: translateY(30px); }
 .anim [data-reveal="up"].is-in {
   opacity: 1;
   transform: none;
-  transition: opacity 0.7s var(--ease), transform 0.9s var(--ease-out);
-  transition-delay: calc(var(--d, 0) * 60ms);
+  transition: opacity 0.6s var(--ease), transform 0.95s var(--ease-out);
+  transition-delay: calc(var(--d, 0) * 80ms);
 }
 
 /* Media opens rather than fades. The transform is deliberately left alone
    so it cannot fight the .duo hover zoom. */
-.anim [data-reveal="media"] { clip-path: inset(0 0 14% 0); opacity: 0; }
+.anim [data-reveal="media"] { clip-path: inset(0 0 26% 0); opacity: 0; }
 .anim [data-reveal="media"].is-in {
   clip-path: inset(0 0 0 0);
   opacity: 1;

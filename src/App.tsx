@@ -40,7 +40,12 @@ function useReveal() {
       // the very geometry being observed: the band starts at inset(46% 0) and
       // tops out at a 0.076 ratio, which never crosses a 0.12 threshold and
       // so can never reveal itself.
-      { threshold: 0, rootMargin: "0px 0px -6% 0px" },
+      //
+      // The bottom margin is what makes the motion actually visible. At -6%
+      // an element fired the moment it touched the bottom edge, so it had
+      // finished animating before it was anywhere a reader was looking. -20%
+      // holds it until it is properly on screen.
+      { threshold: 0, rootMargin: "0px 0px -20% 0px" },
     );
     document.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
     return () => io.disconnect();

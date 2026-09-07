@@ -160,6 +160,12 @@ with JS off, a failed bundle, or `prefers-reduced-motion`, everything renders in
 its finished state instead of staying invisible. Keep new reveal rules under
 `.anim` for the same reason.
 
+The bottom `rootMargin` is what makes the motion *visible*, not just fire. At
+`-6%` an element revealed the instant it touched the bottom edge of the screen,
+so the animation had finished before it reached anywhere a reader was looking —
+it read as no animation at all. `-20%` holds it until the element is properly on
+screen. If reveals ever look dead again, check this before the durations.
+
 > **The observer threshold must stay `0`.** IntersectionObserver measures a
 > target *after* its own `clip-path` is applied, so a reveal that starts clipped
 > shrinks the very geometry being observed. The band starts at `inset(46% 0)`
