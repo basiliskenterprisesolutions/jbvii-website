@@ -96,24 +96,35 @@ the accent runs edge to edge.
 
 ## Type
 
-| Family | Role | Source |
+| Slot | Role | Face |
 | --- | --- | --- |
-| **Archivo** | headings (`.display`, weight 700) | Google Fonts |
-| **Figtree** | body copy | Google Fonts |
-| **JetBrains Mono** | every label, button, nav item, date | Google Fonts |
+| `--display` | headings (`.display`, weight 700) | Poppins 700/800 |
+| `--body` | body copy | Poppins 400/500 |
+| `--mono` | every label, button, nav item, date | Poppins 500/600 |
 
-**Do not self-host or hotlink pacha.com's fonts.** Pacha sets its paragraphs in
-**TT Hoves** (TypeType) and its footer in **Supreme LL** (Lineto). Both are
-commercial licences we do not hold, and their `.woff2` files are served under
-pacha.com's own licence. Figtree is the free match — same geometric skeleton,
-tall x-height and generous width. If the exact face is ever wanted, buy a TT
-Hoves webfont licence from TypeType and swap `--body`; nothing else changes.
+**Poppins, one family across all three slots, self-hosted.** Joe asked for it
+here to match madeacademy.basilisk.software, which uses the same face and the
+same files. The `.woff2` files came from that project (`public/fonts`, OFL
+licence alongside them); six weights are declared, four are actually used
+(400/500/600/700). **There is no Google Fonts request any more** — do not add
+one back.
 
-Earlier body faces and why they were dropped: Switzer (a Helvetica clone, read
-as a default) and Ranade (character, but the wrong kind). Candidates were
-compared by rendering them in the real theme at real sizes — see
-`shot.mjs` in the session scratchpad for the method. Judge type by looking at
-it, not by description.
+The token names stay `--display` / `--body` / `--mono` because the whole
+stylesheet reads in terms of them, and because the three still mean different
+things: different weights, sizes and tracking, same face. `--mono` keeps a
+monospace fallback, since it sets dates, times and set lengths where digits
+want to line up if Poppins fails to load.
+
+Replaced: Archivo (display), Figtree (running text), JetBrains Mono (labels).
+If a three-family system is ever wanted back, note what those three were chosen
+for. **Do not self-host or hotlink pacha.com's fonts.** Pacha sets its
+paragraphs in **TT Hoves** (TypeType) and its footer in **Supreme LL**
+(Lineto) — commercial licences we do not hold, served under pacha.com's own
+licence. Figtree was the free match for TT Hoves. Earlier body faces and why
+they were dropped: Switzer (a Helvetica clone, read as a default) and Ranade
+(character, but the wrong kind). Candidates were compared by rendering them in
+the real theme at real sizes — see `shot.mjs` in the session scratchpad for the
+method. Judge type by looking at it, not by description.
 
 Labels use `.data` (mono, uppercase, `0.2em` tracking). Mono things that must
 stay readable — dates, times — add `.data--val`; running prose adds

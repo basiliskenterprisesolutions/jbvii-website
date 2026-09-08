@@ -5,6 +5,19 @@
    glow / wash) and the cut-corner mask are the two things that make the
    theme read as one system — keep both when adding anything new. */
 
+/* Poppins, self-hosted — the same face and the same files as
+   madeacademy.basilisk.software, which Joe asked for across that whole site.
+   It replaces Archivo (display), Figtree (running text) and JetBrains Mono
+   (labels), so there is one family here now, not three, and no Google Fonts
+   request. Converted to woff2 from the OFL release; the licence sits
+   alongside them in public/fonts. */
+@font-face { font-family: 'Poppins'; font-style: normal; font-weight: 400; font-display: swap; src: url(/fonts/poppins-400.woff2) format('woff2'); }
+@font-face { font-family: 'Poppins'; font-style: italic; font-weight: 400; font-display: swap; src: url(/fonts/poppins-400-italic.woff2) format('woff2'); }
+@font-face { font-family: 'Poppins'; font-style: normal; font-weight: 500; font-display: swap; src: url(/fonts/poppins-500.woff2) format('woff2'); }
+@font-face { font-family: 'Poppins'; font-style: normal; font-weight: 600; font-display: swap; src: url(/fonts/poppins-600.woff2) format('woff2'); }
+@font-face { font-family: 'Poppins'; font-style: normal; font-weight: 700; font-display: swap; src: url(/fonts/poppins-700.woff2) format('woff2'); }
+@font-face { font-family: 'Poppins'; font-style: normal; font-weight: 800; font-display: swap; src: url(/fonts/poppins-800.woff2) format('woff2'); }
+
 :root {
   --bg:        #060609;
   --bg-2:      #0A0A11;
@@ -24,9 +37,14 @@
   --violet-glow: rgba(110, 59, 255, 0.35);
   --violet-wash: rgba(110, 59, 255, 0.1);
 
-  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
-  --body:    "Figtree", "Helvetica Neue", Arial, sans-serif;
-  --mono:    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* One family across all three slots. The names stay because the whole
+     stylesheet reads in terms of them, and because display/body/mono still
+     mean different things here — different weights, sizes and tracking, same
+     face. `--mono` keeps a monospace fallback: it is used for dates, times and
+     set lengths, where digits want to line up if Poppins fails. */
+  --display: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
+  --body:    'Poppins', 'Helvetica Neue', Arial, sans-serif;
+  --mono:    'Poppins', ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --pad: clamp(1.15rem, 5vw, 2.5rem);
   --maxw: 1240px;
